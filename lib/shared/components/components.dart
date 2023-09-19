@@ -102,7 +102,15 @@ Widget articleBuilder(list, context) => ConditionalBuilder(
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) => buildArticleItem(list[index], context),
         itemCount: list.length,
-        separatorBuilder: (context, index) => const Divider(),
+        separatorBuilder: (context, index) =>
+            // Divider(
+            //       color: Theme.of(context).brightness == Brightness.light
+            //           ? Colors.grey // Color for light mode
+            //           : Colors.red, // Color for dark mode
+            //       thickness: 1.0,
+            //       height: 20.0,
+            //     )
+             Divider(),
       ),
       fallback: (context) => const Center(
         child: CircularProgressIndicator(),

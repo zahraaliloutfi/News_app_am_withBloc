@@ -10,8 +10,11 @@ class AppCubit extends Cubit<AppcubitState> {
 
   static AppCubit get(context) => BlocProvider.of(context);
   bool isDark = false;
-  void changeAppMode() {
-    isDark = !isDark;
+  void changeAppMode({bool? fromShared}) {
+    if (fromShared != null)
+      isDark = fromShared;
+    else
+      isDark = !isDark;
     CachHelper.putBoolen(key: 'isDark', value: isDark).then(
       (value) => emit(AppChangeState()),
     );

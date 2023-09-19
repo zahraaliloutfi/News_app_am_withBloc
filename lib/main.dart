@@ -14,17 +14,36 @@ void main() async {
   DioHelper.init();
   await CachHelper.init();
   bool? isDark = CachHelper.getBoolen(key: 'isDark');
-  runApp(const MyApp());
+  runApp(MyApp(
+    isDark: isDark!,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  // Create a MaterialColor from the primary color
+  static MaterialColor kPrimarySwatch = MaterialColor(
+    0xFF2196F3,
+    <int, Color>{
+      50: const Color(0xFFE3F2FD),
+      100: const Color(0xFFBBDEFB),
+      200: const Color(0xFF90CAF9),
+      300: const Color(0xFF64B5F6),
+      400: const Color(0xFF42A5F5),
+      500: kprimaryColor, // Your primary color
+      600: const Color(0xFF1E88E5),
+      700: const Color(0xFF1976D2),
+      800: const Color(0xFF1565C0),
+      900: const Color(0xFF0D47A1),
+    },
+  );
+  MyApp({super.key, this.isDark});
+  bool? isDark;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit(),
+      create: (context) => AppCubit()..changeAppMode(fromShared: isDark),
       child: BlocConsumer<AppCubit, AppcubitState>(
         listener: (context, state) {},
         builder: (context, state) => MaterialApp(
@@ -32,6 +51,12 @@ class MyApp extends StatelessWidget {
               ? ThemeMode.dark
               : ThemeMode.light,
           darkTheme: ThemeData(
+            dividerTheme: DividerThemeData(
+              endIndent: 20,
+              indent: 20,
+              thickness: 1,
+            ),
+            dividerColor: Colors.white,
             textTheme: TextTheme(
               bodyMedium: TextStyle(
                 fontSize: 18,
@@ -69,6 +94,12 @@ class MyApp extends StatelessWidget {
                 elevation: 20),
           ),
           theme: ThemeData(
+            dividerColor: Colors.lightGreen,
+            dividerTheme: DividerThemeData(
+              endIndent: 20,
+              indent: 20,
+              thickness: 1,
+            ),
             textTheme: TextTheme(
               bodyMedium: TextStyle(
                 fontSize: 18,
@@ -79,7 +110,7 @@ class MyApp extends StatelessWidget {
             floatingActionButtonTheme: const FloatingActionButtonThemeData(
               backgroundColor: kprimaryColor,
             ),
-            primarySwatch: Colors.deepOrange,
+            primarySwatch: kPrimarySwatch,
             scaffoldBackgroundColor: Colors.white,
             appBarTheme: AppBarTheme(
               titleSpacing: 20.0,
