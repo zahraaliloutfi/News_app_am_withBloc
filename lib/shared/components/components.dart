@@ -1,8 +1,8 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 
-Widget buildArticleItem(article) => Padding(
-      padding: const EdgeInsets.all(20.0),
+Widget buildArticleItem(article, context) => Padding(
+      padding: EdgeInsets.all(20.0),
       child: Row(
         children: [
           Container(
@@ -30,10 +30,8 @@ Widget buildArticleItem(article) => Padding(
                   Expanded(
                     child: Text(
                       '${article['title']}',
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                      ),
+
+                      //   style: Theme.of(context).textTheme.bodyMedium,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -62,34 +60,34 @@ Widget buildArticleItem(article) => Padding(
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Author :${article['author']}',
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Expanded(
-                    child: Text(
-                      '${article['content']}',
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
+                  // Expanded(
+                  //   child: Text(
+                  //     'Author :${article['author']}',
+                  //     style: const TextStyle(
+                  //       fontSize: 13,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //     maxLines: 2,
+                  //     overflow: TextOverflow.ellipsis,
+                  //   ),
+                  // ),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
+                  // Expanded(
+                  //   child: Text(
+                  //     '${article['content']}',
+                  //     style: const TextStyle(
+                  //       fontSize: 13,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //     maxLines: 2,
+                  //     overflow: TextOverflow.ellipsis,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -98,11 +96,11 @@ Widget buildArticleItem(article) => Padding(
       ),
     );
 
-Widget articleBuilder(list) => ConditionalBuilder(
+Widget articleBuilder(list, context) => ConditionalBuilder(
       condition: list.length > 0,
       builder: (context) => ListView.separated(
         physics: const BouncingScrollPhysics(),
-        itemBuilder: (context, index) => buildArticleItem(list[index]),
+        itemBuilder: (context, index) => buildArticleItem(list[index], context),
         itemCount: list.length,
         separatorBuilder: (context, index) => const Divider(),
       ),
